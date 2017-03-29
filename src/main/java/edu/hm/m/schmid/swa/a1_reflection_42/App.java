@@ -1,4 +1,4 @@
-package edu.hm.m.schmid.swa.a1-reflection-42;
+package edu.hm.m.schmid.swa.a1_reflection_42;
 
 /**
  * Hello world!
