@@ -2,5 +2,5 @@
 *.iml
 .project
 .classpath
-traget/classes
+traget
 .idea
