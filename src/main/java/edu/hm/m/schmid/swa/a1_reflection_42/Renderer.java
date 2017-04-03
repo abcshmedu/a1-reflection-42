@@ -1,8 +1,8 @@
 package edu.hm.m.schmid.swa.a1_reflection_42;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -33,9 +33,27 @@ public class Renderer {
                 } catch (IllegalAccessException e) {
                     renderStringBuilder.append("No access at " + field.getName());
                 }
+                renderStringBuilder.append(System.getProperty("line.separator"));
             }
 
         }
+        
+        Method[] methods = renderObjectClass.getMethods();
+        for (Method method : methods) {
+			if(method.isAnnotationPresent(RenderMe.class) && method.getParameterCount() == 0) {
+				try {
+					renderStringBuilder.append(method.getName() +" (Type " + method.getReturnType() +"): " + method.invoke(getRenderObject(), null));
+				} catch (IllegalAccessException e) {
+					renderStringBuilder.append("No access at " + method.getName());
+				} catch (IllegalArgumentException e) {
+					// Couldn't happen, only methods without Parameters are executed
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				renderStringBuilder.append(System.getProperty("line.separator"));
+			}
+		}
 
         return renderStringBuilder.toString();
 

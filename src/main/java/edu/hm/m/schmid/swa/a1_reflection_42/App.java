@@ -9,6 +9,11 @@ public class App
     @RenderMe
     public int MagicNumber = 42;
 
+    @RenderMe
+    public int getMagicNumber() {
+    	return MagicNumber;
+    }
+    
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
