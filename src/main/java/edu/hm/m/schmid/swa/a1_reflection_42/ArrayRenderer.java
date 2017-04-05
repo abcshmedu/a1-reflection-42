@@ -12,7 +12,7 @@ public class ArrayRenderer extends Renderer {
     @Override
     public String render(){
         StringBuilder builder = new StringBuilder();
-        builder.append("array (Type int[]) [");
+        builder.append("(Type int[]) [");
 
         int[] intArray = (int[])this.getRenderObject();
         for (int i = 0; i < intArray.length; i++) {
