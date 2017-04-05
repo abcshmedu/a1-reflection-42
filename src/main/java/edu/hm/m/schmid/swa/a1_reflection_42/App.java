@@ -10,7 +10,7 @@ public class App
     public int MagicNumber = 42;
 
     @RenderMe
-    public int getMagicNumber() {
+    private int getMagicNumber() {
     	return MagicNumber;
     }
     

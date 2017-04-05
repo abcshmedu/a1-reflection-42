@@ -17,7 +17,7 @@ public class Renderer {
         this.renderObject = toRender;
 
     }
-    private Object getRenderObject(){return renderObject;}
+    protected Object getRenderObject(){return renderObject;}
 
     public String render(){
 
@@ -27,10 +27,19 @@ public class Renderer {
 
         for (Field field: fields) {
 
+
+
             if(field.isAnnotationPresent(RenderMe.class)){
+                RenderMe annotation = field.getAnnotation(RenderMe.class);
                 try {
-                    renderStringBuilder.append(field.getName() +" (Type " + field.getType() +"): " + field.get(this.getRenderObject()));
-                } catch (IllegalAccessException e) {
+                    if(annotation.with().equals(""))
+                        renderStringBuilder.append(field.getName() +" (Type " + field.getType() +"): " + field.get(this.getRenderObject()));
+                    else{
+                        Class<?> act = Class.forName(annotation.with());
+                        Renderer obj = (Renderer)act.getDeclaredConstructor(int[].class).newInstance(field.get(this.getRenderObject()));
+                        renderStringBuilder.append(obj.render());
+                    }
+                } catch (Exception e) {
                     renderStringBuilder.append("No access at " + field.getName());
                 }
                 renderStringBuilder.append(System.getProperty("line.separator"));
