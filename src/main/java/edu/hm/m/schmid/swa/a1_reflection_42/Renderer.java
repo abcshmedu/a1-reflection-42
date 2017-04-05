@@ -1,3 +1,14 @@
+/** Hochschule Muenchen, Fakultaet 07 Informatik und Mathematik
+ *  Praktikum Software Architektur IF4B SS2017
+ *  Loesung von Aufgabe 1
+ *
+ *  Autor: Raphael Furch, rfurch@hm.edu
+ *  Autor: Michael Schmid, m.schmid@hm.edu
+ *  Datum: 29.03.2017
+ *  Software: Windows 10, Java 1.8.0_60 SE
+ *  System: Intel Core i7-2677m, 4GB RAM
+ *
+ */
 package edu.hm.m.schmid.swa.a1_reflection_42;
 
 import java.lang.reflect.Field;
@@ -9,15 +20,32 @@ import java.lang.reflect.Method;
  */
 public class Renderer {
 
+    /**
+     * Object to render.
+     */
     private final Object renderObject;
+
+    /**
+     * C.
+     * @param toRender = object to render. Null is n
+     */
     public Renderer(Object toRender){
         if(toRender == null)
             throw new NullPointerException("Null is not allowed as parameter.");
         this.renderObject = toRender;
 
     }
+
+    /**
+     * Gets the object which should be rendered.
+     * @return object.
+     */
     protected Object getRenderObject(){return renderObject;}
 
+    /**
+     * Renders the object which was given in constructor as parameter.
+     * @return rendered object as string.
+     */
     public String render(){
 
         StringBuilder renderStringBuilder = new StringBuilder();
