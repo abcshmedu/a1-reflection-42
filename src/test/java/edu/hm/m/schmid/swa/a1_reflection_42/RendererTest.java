@@ -32,7 +32,6 @@ public class RendererTest {
 	public void testRendering() throws Exception {
 		final SomeClass toRender = new SomeClass(5);
 		final Renderer renderer = new Renderer(toRender);
-		String render = renderer.render();
 		assertEquals("Instance of edu.hm.SomeClass:\n" +
 				"array (Type int[]) [1, 2, 3, ]\n"+
 				"date (Type class java.util.Date): Fri Jan 02 11:17:36 CET 1970\n"+
