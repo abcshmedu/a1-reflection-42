@@ -22,7 +22,7 @@ public class ArrayRenderer extends Renderer {
      * C.
      * @param toRender = int[] to render.
      */
-    public ArrayRenderer(int[] toRender) {
+    public ArrayRenderer(int[] toRender){
         super(toRender); // call super C.
     }
 
@@ -31,7 +31,7 @@ public class ArrayRenderer extends Renderer {
      * @return rendered object as string.
      */
     @Override
-    public String render() {
+    public String render(){
         StringBuilder builder = new StringBuilder();
         builder.append("(Type int[]) [");
 

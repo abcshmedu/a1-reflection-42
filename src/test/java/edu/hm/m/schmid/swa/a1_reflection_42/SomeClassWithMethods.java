@@ -9,13 +9,13 @@
  *  System: Intel Core i7-2677m, 4GB RAM
  *
  */
-package edu.hm;
+package edu.hm.m.schmid.swa.a1_reflection_42;
 
 import java.util.Date;
 
 import edu.hm.m.schmid.swa.a1_reflection_42.RenderMe;
 
-public class SomeClass {
+public class SomeClassWithMethods {
 	@RenderMe
 	private int foo;
 	@RenderMe(with="edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
@@ -23,8 +23,18 @@ public class SomeClass {
 	@RenderMe
 	private Date date = new Date(123456789);
 	
-	public SomeClass(int foo) {
+	public SomeClassWithMethods(int foo) {
 		this.foo = foo;
+	}
+	
+	@RenderMe
+	public int getFoo() {
+		return foo;
+	}
+	
+	@RenderMe(with="edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
+	private int[] getArray() {
+		return array;
 	}
 	
 }
