@@ -14,6 +14,8 @@ package edu.hm.m.schmid.swa.a1_reflection_42;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by Raphael Furch on 29.03.2017.
@@ -29,9 +31,10 @@ public class Renderer {
      * C.
      * @param toRender = object to render. Null is n
      */
-    public Renderer(Object toRender){
-        if(toRender == null)
+    public Renderer(Object toRender) {
+        if (toRender == null) {
             throw new NullPointerException("Null is not allowed as parameter.");
+        }
         this.renderObject = toRender;
 
     }
@@ -40,7 +43,9 @@ public class Renderer {
      * Gets the object which should be rendered.
      * @return object.
      */
-    protected Object getRenderObject(){return renderObject;}
+    protected Object getRenderObject() {
+        return renderObject;
+    }
 
     /**
      * Renders the object which was given in constructor as parameter.
@@ -50,54 +55,57 @@ public class Renderer {
      * @throws InstantiationException the construction of the annotated renderer failed 
      * @throws InvocationTargetException the render method of the annotated renderer throws an exception
      */
-    public String render() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalArgumentException, InvocationTargetException{
+    public String render() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, InvocationTargetException {
 
         StringBuilder renderStringBuilder = new StringBuilder();
-        Class<?> renderObjectClass = this.getRenderObject().getClass();
-        Field[] fields =renderObjectClass.getDeclaredFields();
-        
+        Class< ? > renderObjectClass = this.getRenderObject().getClass();
+        Field[] fields = renderObjectClass.getDeclaredFields();
+        Arrays.sort(fields, Comparator.comparing(Field::getName));
         renderStringBuilder.append("Instance of " + renderObjectClass.getName() + ":\n");
         
         for (Field field: fields) {
-            if(field.isAnnotationPresent(RenderMe.class)){
-            	field.setAccessible(true);
+            if (field.isAnnotationPresent(RenderMe.class)) {
+                field.setAccessible(true);
                 RenderMe annotation = field.getAnnotation(RenderMe.class);
                 try {
-                	renderStringBuilder.append(field.getName() + " ");
-                    if(annotation.with().equals(""))
-                        renderStringBuilder.append("(Type " + field.getType() +"): " + field.get(this.getRenderObject()) + "\n");
-                    else{
-                        Class<?> act = Class.forName(annotation.with());
+                    renderStringBuilder.append(field.getName() + " ");
+                    if (annotation.with().equals("")) {
+                        renderStringBuilder.append("(Type " + field.getType() + "): " + field.get(this.getRenderObject()) + "\n");
+                    }
+                    else {
+                        Class< ? > act = Class.forName(annotation.with());
                         Renderer obj = (Renderer)act.getDeclaredConstructor(field.getType()).newInstance(field.get(this.getRenderObject()));
                         renderStringBuilder.append(obj.render());
                     }
                 } catch (IllegalAccessException e) {
-					// Couldn't happen, every methods is set accessible
+                    // Couldn't happen, every methods is set accessible
                 }
             }
 
         }
         
         Method[] methods = renderObjectClass.getDeclaredMethods();
+        Arrays.sort(methods, Comparator.comparing(Method::getName));
         for (Method method : methods) {
-        	method.setAccessible(true);
-        	if(method.isAnnotationPresent(RenderMe.class) && method.getParameterCount() == 0 && method.getReturnType() != void.class) {
-        		RenderMe annotation = method.getAnnotation(RenderMe.class);
-				try {
-					renderStringBuilder.append(method.getName() + " ");
-					if(annotation.with().equals(""))
-						renderStringBuilder.append("(Type " + method.getReturnType() +"): " + method.invoke(getRenderObject(), new Object[0]) + "\n");
-					else {
-						Class<?> act = Class.forName(annotation.with());
-						Renderer obj = (Renderer)act.getDeclaredConstructor(method.getReturnType()).newInstance(method.invoke(getRenderObject(), new Object[0]));
-						renderStringBuilder.append(obj.render());
-						
-					}
-				} catch (IllegalAccessException e) {
-					// Couldn't happen, every methods is set accessible
-				}
-			}
-		}
+            method.setAccessible(true);
+            if (method.isAnnotationPresent(RenderMe.class) && method.getParameterCount() == 0 && method.getReturnType() != void.class) {
+                RenderMe annotation = method.getAnnotation(RenderMe.class);
+                try {
+                    renderStringBuilder.append(method.getName() + " ");
+                    if (annotation.with().equals("")) {
+                        renderStringBuilder.append("(Type " + method.getReturnType() + "): " + method.invoke(getRenderObject(), new Object[0]) + "\n");
+                    }
+                    else {
+                        Class< ? > act = Class.forName(annotation.with());
+                        Renderer obj = (Renderer)act.getDeclaredConstructor(method.getReturnType()).newInstance(method.invoke(getRenderObject(), new Object[0]));
+                        renderStringBuilder.append(obj.render());
+
+                    }
+                } catch (IllegalAccessException e) {
+                    // Couldn't happen, every methods is set accessible
+                }
+            }
+        }
 
         return renderStringBuilder.toString();
 
