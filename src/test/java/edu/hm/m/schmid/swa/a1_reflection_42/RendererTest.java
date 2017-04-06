@@ -19,6 +19,12 @@ import edu.hm.SomeClass;
 
 public class RendererTest {	
 	
+	@Test(expected=NullPointerException.class)
+	public void rendererObjectWithParameterNull() {
+		@SuppressWarnings("unused")
+		final Renderer renderer = new Renderer(null);
+	}
+	
 	@Test
 	public void testRendering() throws Exception {
 		final SomeClass toRender = new SomeClass(5);
