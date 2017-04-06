@@ -34,7 +34,7 @@ public class RendererTest {
 				"date (Type class java.util.Date): Fri Jan 02 11:17:36 CET 1970\n", renderer.render());
 	}
 	@Test
-	public void renderWithMethods() {
+	public void renderWithMethods() throws Exception {
 		final SomeClassWithMethods toRenderMethods = new SomeClassWithMethods(42);
 		final Renderer renderer = new Renderer(toRenderMethods);
 		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.SomeClassWithMethods:\n" +
@@ -46,7 +46,7 @@ public class RendererTest {
 	}
 	
 	@Test
-	public void renderVoidAndParameter() {
+	public void renderVoidAndParameter() throws Exception {
 		final VoidAndParameterMethod toRenderMethods = new VoidAndParameterMethod();
 		final Renderer renderer = new Renderer(toRenderMethods);
 		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.VoidAndParameterMethod:\n", renderer.render());

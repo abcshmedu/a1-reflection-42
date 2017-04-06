@@ -45,8 +45,12 @@ public class Renderer {
     /**
      * Renders the object which was given in constructor as parameter.
      * @return rendered object as string.
+     * @throws ClassNotFoundException the annotated renderer doesn't exists
+     * @throws NoSuchMethodException the annotated renderer hasn't a constructor with this type
+     * @throws InstantiationException the construction of the annotated renderer failed 
+     * @throws InvocationTargetException the render method of the annotated renderer throws an exception
      */
-    public String render(){
+    public String render() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalArgumentException, InvocationTargetException{
 
         StringBuilder renderStringBuilder = new StringBuilder();
         Class<?> renderObjectClass = this.getRenderObject().getClass();
@@ -67,8 +71,8 @@ public class Renderer {
                         Renderer obj = (Renderer)act.getDeclaredConstructor(field.getType()).newInstance(field.get(this.getRenderObject()));
                         renderStringBuilder.append(obj.render());
                     }
-                } catch (Exception e) {
-                    renderStringBuilder.append("No access at " + field.getName());
+                } catch (IllegalAccessException e) {
+					// Couldn't happen, every methods is set accessible
                 }
             }
 
@@ -91,23 +95,6 @@ public class Renderer {
 					}
 				} catch (IllegalAccessException e) {
 					// Couldn't happen, every methods is set accessible
-				} catch (IllegalArgumentException e) {
-					// Couldn't happen, only methods without Parameters are executed
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		}
