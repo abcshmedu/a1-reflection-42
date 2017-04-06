@@ -22,5 +22,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface RenderMe {
+    /**
+     * If there is a special renderer for this object, give the name (including namespace).
+     * @return special renderer if exists.
+     */
     String with() default "";
 }
