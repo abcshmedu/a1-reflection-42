@@ -9,7 +9,9 @@
  *  System: Intel Core i7-2677m, 4GB RAM
  *
  */
-package edu.hm.m.schmid.swa.a1_reflection_42;
+package edu.hm.m.schmid.swa.a1_reflection_42.testClasses;
+
+import edu.hm.m.schmid.swa.a1_reflection_42.RenderMe;
 
 public class VoidAndParameterMethod {
 	@RenderMe

@@ -14,7 +14,7 @@ package edu.hm.m.schmid.swa.a1_reflection_42;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+import edu.hm.m.schmid.swa.a1_reflection_42.testClasses.*;
 import edu.hm.SomeClass;
 
 /**
@@ -43,7 +43,7 @@ public class RendererTest {
 		final SomeClassWithMethods toRenderMethods = new SomeClassWithMethods(42);
 		final Renderer renderer = new Renderer(toRenderMethods);
 		String render = renderer.render();
-		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.SomeClassWithMethods:\n" +
+		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.testClasses.SomeClassWithMethods:\n" +
 				"array (Type int[]) [1, 2, 3, ]\n" +
 				"date (Type class java.util.Date): Fri Jan 02 11:17:36 CET 1970\n" +
 				"foo (Type int): 42\n" +
@@ -56,7 +56,7 @@ public class RendererTest {
 	public void renderVoidAndParameter() throws Exception {
 		final VoidAndParameterMethod toRenderMethods = new VoidAndParameterMethod();
 		final Renderer renderer = new Renderer(toRenderMethods);
-		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.VoidAndParameterMethod:\n", renderer.render());
+		assertEquals("Instance of edu.hm.m.schmid.swa.a1_reflection_42.testClasses.VoidAndParameterMethod:\n", renderer.render());
 	}
 
 }
