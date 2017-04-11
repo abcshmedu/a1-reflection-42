@@ -13,15 +13,27 @@ package edu.hm.m.schmid.swa.a1_reflection_42.testClasses;
 
 import edu.hm.m.schmid.swa.a1_reflection_42.RenderMe;
 
+/**
+ * Just testing return void and methods with parameter tests.
+ */
 public class VoidAndParameterMethod {
-	@RenderMe
-	public int getNumber(int number) {
-		return number;
-	}
-	
-	@RenderMe
-	public void toNothing() {
-		;
-	}
-	
+
+    /**
+     * Method with parameter.
+     * @param number = number.
+     * @return a number.
+     */
+    @RenderMe
+    public int getNumber(int number) {
+        return number;
+    }
+
+    /**
+     * Void method to test.
+     */
+    @RenderMe
+    public void toNothing() {
+        int i = 0;
+    }
+
 }

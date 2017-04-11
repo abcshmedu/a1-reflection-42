@@ -15,26 +15,56 @@ import java.util.Date;
 
 import edu.hm.m.schmid.swa.a1_reflection_42.RenderMe;
 
+/**
+ * Some class to test.
+ */
 public class SomeClassWithMethods {
-	@RenderMe
-	private int foo;
-	@RenderMe(with="edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
-	int[] array = {1, 2, 3, };
-	@RenderMe
-	private Date date = new Date(123456789);
-	
-	public SomeClassWithMethods(int foo) {
-		this.foo = foo;
-	}
-	
-	@RenderMe
-	public int getFoo() {
-		return foo;
-	}
-	
-	@RenderMe(with="edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
-	private int[] getArray() {
-		return array;
-	}
-	
+    /**
+     * a int.
+     */
+    @RenderMe
+    private int foo;
+
+    /**
+     * a array to render.
+     */
+    @RenderMe(with = "edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
+    private int[] array = {1, 2, 2+1, };
+
+    /**
+     * Date as long.
+     */
+    private final long dateAsLong = 123456789;
+    /**
+     * a date to test.
+     */
+    @RenderMe
+    private Date date = new Date(dateAsLong);
+
+    /**
+     * C.
+     * @param foo = int to test.
+     */
+    public SomeClassWithMethods(int foo) {
+        this.foo = foo;
+    }
+
+    /**
+     * A getter to test.
+     * @return a int.
+     */
+    @RenderMe
+    public int getFoo() {
+        return foo;
+    }
+
+    /**
+     * A array getter to test.
+     * @return a array.
+     */
+    @RenderMe(with = "edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
+    private int[] getArray() {
+        return array;
+    }
+
 }

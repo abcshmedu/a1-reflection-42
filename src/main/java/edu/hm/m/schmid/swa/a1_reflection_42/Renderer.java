@@ -58,36 +58,42 @@ public class Renderer {
     public String render() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, InvocationTargetException {
 
         StringBuilder renderStringBuilder = new StringBuilder();
+        // Get all classes
         Class< ? > renderObjectClass = this.getRenderObject().getClass();
+        // Get all fields
         Field[] fields = renderObjectClass.getDeclaredFields();
+        // Sort by abc.
         Arrays.sort(fields, Comparator.comparing(Field::getName));
         renderStringBuilder.append("Instance of " + renderObjectClass.getName() + ":\n");
-        
+
+        // Render all fields.
         for (Field field: fields) {
             if (field.isAnnotationPresent(RenderMe.class)) {
-                field.setAccessible(true);
+                field.setAccessible(true); // make private accessible.
                 RenderMe annotation = field.getAnnotation(RenderMe.class);
                 try {
                     renderStringBuilder.append(field.getName() + " ");
-                    if (annotation.with().equals("")) {
+                    if (annotation.with().equals("")) { // default renderer.
                         renderStringBuilder.append("(Type " + field.getType() + "): " + field.get(this.getRenderObject()) + "\n");
                     }
-                    else {
+                    else { // call custom render.
                         Class< ? > act = Class.forName(annotation.with());
                         Renderer obj = (Renderer)act.getDeclaredConstructor(field.getType()).newInstance(field.get(this.getRenderObject()));
                         renderStringBuilder.append(obj.render());
                     }
                 } catch (IllegalAccessException e) {
-                    // Couldn't happen, every methods is set accessible
+                    // Couldn't happen, every field is set accessible
                 }
             }
 
         }
-        
+        // Get all methods.
         Method[] methods = renderObjectClass.getDeclaredMethods();
+        // SOrt b abc.
         Arrays.sort(methods, Comparator.comparing(Method::getName));
         for (Method method : methods) {
             method.setAccessible(true);
+            // Render method if it returns a value and has no parameter.
             if (method.isAnnotationPresent(RenderMe.class) && method.getParameterCount() == 0 && method.getReturnType() != void.class) {
                 RenderMe annotation = method.getAnnotation(RenderMe.class);
                 try {
