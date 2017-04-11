@@ -29,7 +29,7 @@ public class SomeClassWithMethods {
      * a array to render.
      */
     @RenderMe(with = "edu.hm.m.schmid.swa.a1_reflection_42.ArrayRenderer")
-    private int[] array = {1, 2, 2+1, };
+    private int[] array = {1, 2, 2 + 1, };
 
     /**
      * Date as long.
